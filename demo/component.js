@@ -1,5 +1,5 @@
 import React from 'react';
-import Keyboard from '../src/index';
+import Keyboard from '../src/Keyboard';
 
 class App extends React.Component {
   state = {}
