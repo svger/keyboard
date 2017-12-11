@@ -4,24 +4,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var React = require('react');
 var touchStyles = require('./touchStyles');
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class');
 
 /**
  * Tappable Component
  * ==================
  */
 module.exports = function (mixins) {
-	return React.createClass({
+	return createClass({
 		displayName: 'Tappable',
 
 		mixins: mixins,
 
 		propTypes: {
-			component: React.PropTypes.any, // component to create
-			className: React.PropTypes.string, // optional className
-			classBase: React.PropTypes.string, // base for generated classNames
-			classes: React.PropTypes.object, // object containing the active and inactive class names
-			style: React.PropTypes.object, // additional style properties for the component
-			disabled: React.PropTypes.bool // only applies to buttons
+			component: PropTypes.any, // component to create
+			className: PropTypes.string, // optional className
+			classBase: PropTypes.string, // base for generated classNames
+			classes: PropTypes.object, // object containing the active and inactive class names
+			style: PropTypes.object, // additional style properties for the component
+			disabled: PropTypes.bool // only applies to buttons
 		},
 
 		getDefaultProps: function getDefaultProps() {

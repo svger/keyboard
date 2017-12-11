@@ -14,11 +14,13 @@
 @bg-letter-item:            @bg-default;
 @bg-digit-item:             @bg-default;
 @bg-action-item:            @bg-operator-item;
+@prefixCls:                 cefc-keyboard;
 
 .flex-center() {
   display: flex;
   justify-content: center;
   align-items: center;
+  list-style: none;
 }
 
 .resize(@width, @height) {
@@ -41,218 +43,220 @@
 //
 // Keyboard css
 // ==========================
-.keyboard {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 4;
-  font-size: .14rem;
-  background-color: @bg-keyboard;
-
-  .digit-number {
-    width: 80%;
-  }
-
-  .digit-stock {
-    width: 60%;
-  }
-
-  .digit-key {
-
-    > li {
-      .resize(33.33%, .54rem);
-      padding-right: 1px;
-      padding-bottom: 1px;
-
-      &:nth-child(n + 10) {
-        padding-bottom: 0;
-      }
-    }
-  }
-
-  .operator-key {
+.@{prefixCls} {
+  &-keyboard {
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 20%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    font-size: .14rem;
+    background-color: @bg-keyboard;
 
-    > li {
-      .resize(100%, @keyboard-height/2);
-      box-sizing: border-box;
-      display: flex;
-      flex: 1;
-      padding-right: 1px;
-      padding-bottom: 1px;
+    .@{prefixCls}-digit-number {
+      width: 80%;
+    }
 
-      > div {
-        .resize(100%, 100%);
-        .flex-center();
-        color: @font-action-color;
-        box-sizing: border-box;
-        text-align: center;
+    .@{prefixCls}-digit-stock {
+      width: 60%;
+    }
 
-        > * {
-          display: block;
+    .@{prefixCls}-digit-key {
+
+      > li {
+        .resize(33.33%, .54rem);
+        padding-right: 1px;
+        padding-bottom: 1px;
+
+        &:nth-child(n + 10) {
+          padding-bottom: 0;
         }
       }
     }
 
-    > li + li {
-      padding-bottom: 0;
-    }
-  }
+    .@{prefixCls}-operator-key {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 20%;
 
-  .letterKey {
-    width: 100%;
-    height: 100%;
-    margin-top: .1rem;
-    margin-bottom: .05rem;
+      > li {
+        .resize(100%, @keyboard-height/2);
+        box-sizing: border-box;
+        display: flex;
+        flex: 1;
+        padding-right: 1px;
+        padding-bottom: 1px;
 
-    > ul li,
-    > ul div {
-      .resize(.32rem, .42rem);
-      text-align: center;
-      line-height: .42rem;
-      color: @font-default-color;
-      border-radius: .05rem;
-      box-shadow: 0 0 .01rem rgba(0, 0, 0, .35);
-      background-color: @bg-letter-item;
-    }
+        > div {
+          .resize(100%, 100%);
+          .flex-center();
+          color: @font-action-color;
+          box-sizing: border-box;
+          text-align: center;
 
-    > ul li + li {
-      margin-left: .05rem;
-    }
-
-    .letter-gap {
-      margin-top: .12rem;
-    }
-
-    .operator-item {
-      background-color: @bg-operator-item;
-    }
-
-    .operator-item-width {
-      width: .42rem;
-    }
-
-    .letter-thirdLine {
-      > div:first-child {
-        margin-right: .14rem;
+          > * {
+            display: block;
+          }
+        }
       }
 
-      > div:last-child {
-        margin-left: .14rem;
+      > li + li {
+        padding-bottom: 0;
       }
     }
 
-    .letter-forthLine {
-      .operator-item {
-        width: .41rem;
+    .@{prefixCls}-letterKey {
+      width: 100%;
+      height: 100%;
+      margin-top: .1rem;
+      margin-bottom: .05rem;
+
+      > ul li,
+      > ul div {
+        .resize(.32rem, .42rem);
+        text-align: center;
+        line-height: .42rem;
+        color: @font-default-color;
+        border-radius: .05rem;
+        box-shadow: 0 0 .01rem rgba(0, 0, 0, .35);
+        background-color: @bg-letter-item;
       }
 
-      .space {
-        width: 1.82rem;
+      > ul li + li {
+        margin-left: .05rem;
       }
 
-      .confirm {
-        width: .88rem;
+      .@{prefixCls}-letter-gap {
+        margin-top: .12rem;
+      }
+
+      .@{prefixCls}-operator-item {
+        background-color: @bg-operator-item;
+      }
+
+      .@{prefixCls}-operator-item-width {
+        width: .42rem;
+      }
+
+      .@{prefixCls}-letter-thirdLine {
+        > div:first-child {
+          margin-right: .14rem;
+        }
+
+        > div:last-child {
+          margin-left: .14rem;
+        }
+      }
+
+      .@{prefixCls}-letter-forthLine {
+        .operator-item {
+          width: .41rem;
+        }
+
+        .@{prefixCls}-space {
+          width: 1.82rem;
+        }
+
+        .@{prefixCls}-confirm {
+          width: .88rem;
+        }
       }
     }
-  }
 
-  .digit-item {
-    .resize(100%, 20%);
-    box-sizing: border-box;
-    float: left;
-    display: block;
-
-    > div {
-      .resize(100%, 100%);
-      .flex-center();
-      background: @bg-digit-item;
-      color: @font-default-color;
+    .@{prefixCls}-digit-item {
+      .resize(100%, 20%);
       box-sizing: border-box;
-      text-align: center;
+      float: left;
+      display: block;
+
+      > div {
+        .resize(100%, 100%);
+        .flex-center();
+        background: @bg-digit-item;
+        color: @font-default-color;
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      .@{prefixCls}-packUpIcon {
+        .setKeyboardImages(.24rem, "@{imageUrl}packUp.png");
+        background-color: @bg-action-item;
+      }
+
+      &:last-child > div {
+
+        img {
+          width: .24rem;
+        }
+      }
     }
 
-    .packUpIcon {
-      .setKeyboardImages(.24rem, "@{imageUrl}packUp.png");
+    .@{prefixCls}-stock-key {
+      height: @keyboard-height;
+      width: 20%;
+
+      > li {
+
+        padding-right: 1px;
+        padding-bottom: 0;
+      }
+
+      > li:last-child {
+        padding-bottom: 0;
+        padding-top: 1px;
+      }
+
+      div {
+        position: relative;
+        padding-left: 20%;
+        padding-right: 20%;
+        background-color: @bg-stock-item;
+      }
+
+      .@{prefixCls}-stock-digit-item + .@{prefixCls}-stock-digit-item > div:after {
+        content: '';
+        position: absolute;
+        left: 20%;
+        width: 60%;
+        top: 0;
+        height: 0.01rem;
+        background-color: @bg-stock-digit-item;
+      }
+    }
+
+    .@{prefixCls}-action-bg > div {
       background-color: @bg-action-item;
     }
 
-    &:last-child > div {
+    .@{prefixCls}-flex-center {
+      .flex-center();
+    }
 
-      img {
-        width: .24rem;
+    .@{prefixCls}-action-image {
+      .@{prefixCls}-deleteIcon {
+        .setKeyboardImages(.24rem, "@{imageUrl}keyboard-delete.png");
+        display: block;
+        background-color: @bg-action-item;
+      }
+
+      .@{prefixCls}-lowerCaseIcon {
+        .setKeyboardImages(.24rem, "@{imageUrl}lowerCase.png");
+      }
+
+      .@{prefixCls}-upperCaseIcon {
+        .setKeyboardImages(.24rem, "@{imageUrl}upperCase.png");
+      }
+
+      .@{prefixCls}-packUpIcon {
+        .setKeyboardImages(.24rem, "@{imageUrl}packUp.png");
+        background-color: @bg-action-item;
       }
     }
   }
 
-  .stock-key {
-    height: @keyboard-height;
-    width: 20%;
-
-    > li {
-
-      padding-right: 1px;
-      padding-bottom: 0;
-    }
-
-    > li:last-child {
-      padding-bottom: 0;
-      padding-top: 1px;
-    }
-
-    div {
-      position: relative;
-      padding-left: 20%;
-      padding-right: 20%;
-      background-color: @bg-stock-item;
-    }
-
-    .stock-digit-item + .stock-digit-item > div:after {
-      content: '';
-      position: absolute;
-      left: 20%;
-      width: 60%;
-      top: 0;
-      height: 0.01rem;
-      background-color: @bg-stock-digit-item;
-    }
+  &-hideKeyboard {
+    display: none;
   }
-
-  .action-bg > div {
-    background-color: @bg-action-item;
-  }
-
-  .flex-center {
-    .flex-center();
-  }
-
-  .action-image {
-    .deleteIcon {
-      .setKeyboardImages(.24rem, "@{imageUrl}keyboard-delete.png");
-      display: block;
-      background-color: @bg-action-item;
-    }
-
-    .lowerCaseIcon {
-      .setKeyboardImages(.24rem, "@{imageUrl}lowerCase.png");
-    }
-
-    .upperCaseIcon {
-      .setKeyboardImages(.24rem, "@{imageUrl}upperCase.png");
-    }
-
-    .packUpIcon {
-      .setKeyboardImages(.24rem, "@{imageUrl}packUp.png");
-      background-color: @bg-action-item;
-    }
-  }
-}
-
-.hideKeyboard {
-  display: none;
 }

@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import CSSModule from 'react-css-modules';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
 import styles from './style/index.less';
 import Tappable from './react-tappable/Tappable';
 
@@ -18,6 +17,7 @@ const keyboardLowerCaseLettersItems = {
 };
 const keyboardStockItems = ['600', '300', '000', '002'];
 const TOUCH_MOVE = 'touchmove';
+const defaultPrefixCls = 'cefc-keyboard';
 
 class Keyboard extends Component {
 
@@ -100,58 +100,64 @@ class Keyboard extends Component {
   }
 
   renderStockItems = () => {
+    const prefixCls = this.props.prefixCls;
+    const stockItemsCls = classnames(`${prefixCls}-digit-item`, `${prefixCls}-stock-digit-item`);
+    const actionCls = classnames(`${prefixCls}-digit-item`, `${prefixCls}-action-bg`);
     return (
-        <ul styleName="stock-key" key="stock-key">
+        <ul className={`${prefixCls}-stock-key`} key="stock-key">
           {keyboardStockItems.map((item, index) => {
             return (
                 <Tappable
                     component="li"
                     key={`${item}-${index}`}
-                    styleName="digit-item stock-digit-item"
+                    className={stockItemsCls}
                     onTouchEnd={this.handleKeyboardTouch(item)}
                 >
                   <div>{item}</div>
                 </Tappable>
             )
           })}
-          <Tappable component="li" styleName="digit-item action-bg" onTap={this.handleKeyboardSwitchTap(this.keyboardTypes.LETTER)}><div>ABC</div></Tappable>
+          <Tappable component="li" className={actionCls} onTap={this.handleKeyboardSwitchTap(this.keyboardTypes.LETTER)}><div>ABC</div></Tappable>
         </ul>
     );
   }
 
   renderDigitKey = () => {
     const { type } = this.state;
+    const prefixCls = this.props.prefixCls;
 
     return (
-        <ul styleName={`digit-key digit-${type}`} key="digit-key">
+        <ul className={`${prefixCls}-digit-key ${prefixCls}-digit-${type}`} key="digit-key">
           {keboardNumberItems.map((item, index) => {
             return (
                 <Tappable
                     component="li"
                     key={`${item}-${index}`}
-                    styleName="digit-item"
+                    className={`${prefixCls}-digit-item`}
                     onTouchEnd={this.handleKeyboardTouch(item)}
                 >
                   <div>{item}</div>
                 </Tappable>
             );
           })}
-          <Tappable component="li" styleName="digit-item" onTap={this.handleHideKeyboardTap}>
-            <div styleName="packUpIcon">{}</div>
+          <Tappable component="li" className={`${prefixCls}-digit-item`} onTap={this.handleHideKeyboardTap}>
+            <div className={`${prefixCls}-packUpIcon`}>{}</div>
           </Tappable>
         </ul>
     )
   }
 
   renderOperatorKey = () => {
+    const prefixCls = this.props.prefixCls;
+
     return (
-        <ul styleName="operator-key" key="operator-key">
-          <Tappable component="li" styleName="action-bg action-image" onTap={this.handleDeleteTap}>
+        <ul className={`${prefixCls}-operator-key`} key="operator-key">
+          <Tappable component="li" className={`${prefixCls}-action-bg ${prefixCls}-action-image`} onTap={this.handleDeleteTap}>
             <div>
-              <i styleName="deleteIcon" />
+              <i className={`${prefixCls}-deleteIcon`} />
             </div>
           </Tappable>
-          <Tappable component="li" styleName="action-bg" onTap={this.handleHideKeyboardTap}>
+          <Tappable component="li" className={`${prefixCls}-action-bg`} onTap={this.handleHideKeyboardTap}>
             <div><span>确定</span></div>
           </Tappable>
         </ul>
@@ -160,38 +166,39 @@ class Keyboard extends Component {
 
   renderLetterKeyboard = () => {
     const { isLowerCase } = this.state;
+    const prefixCls = this.props.prefixCls;
     const letterItems = isLowerCase ? keyboardLowerCaseLettersItems : keyboardLettersItems;
 
     return (
-        <ul styleName="letterKey" key="letterKey">
-          <ul styleName="flex-center">
+        <ul className={`${prefixCls}-letterKey`} key="letterKey">
+          <ul className={`${prefixCls}-flex-center`}>
             {letterItems.firstLine.map((item, index) => {
               return <Tappable component="li" key={`${item}-${index}`} onTouchEnd={this.handleKeyboardTouch(item)}><div>{item}</div></Tappable>
             })}
           </ul>
-          <ul styleName="flex-center letter-gap">
+          <ul className={`${prefixCls}-flex-center ${prefixCls}-letter-gap`}>
             {letterItems.secondLine.map((item, index) => {
               return <Tappable component="li" key={`${item}-${index}`} onTouchEnd={this.handleKeyboardTouch(item)}><div>{item}</div></Tappable>
             })}
           </ul>
-          <ul styleName="flex-center letter-gap letter-thirdLine">
-            <Tappable component="div" styleName="operator-item operator-item-width action-image" onTap={this.handleLetterSwitchTap}>
-              <i styleName={isLowerCase ? 'lowerCaseIcon' : 'upperCaseIcon'}>{}</i>
+          <ul className={`${prefixCls}-flex-center ${prefixCls}-letter-gap ${prefixCls}-letter-thirdLine`}>
+            <Tappable component="div" className={`${prefixCls}-operator-item ${prefixCls}-operator-item-width ${prefixCls}-action-image`} onTap={this.handleLetterSwitchTap}>
+              <i className={isLowerCase ? `${prefixCls}-lowerCaseIcon` : `${prefixCls}-upperCaseIcon`}>{}</i>
             </Tappable>
             {letterItems.thirdLine.map((item, index) => {
               return <Tappable component="li" key={`${item}-${index}`} onTouchEnd={this.handleKeyboardTouch(item)}><div>{item}</div></Tappable>
             })}
-            <Tappable component="div" styleName="operator-item operator-item-width action-image" onTap={this.handleDeleteTap}>
-              <div styleName="deleteIcon">{}</div>
+            <Tappable component="div" className={`${prefixCls}-operator-item ${prefixCls}-operator-item-width ${prefixCls}-action-image`} onTap={this.handleDeleteTap}>
+              <div className={`${prefixCls}-deleteIcon`}>{}</div>
             </Tappable>
           </ul>
-          <ul styleName="flex-center letter-gap letter-forthLine">
-            <Tappable component="li" styleName="operator-item operator-item-width" onTap={this.handleKeyboardSwitchTap(this.keyboardTypes.DIGIT)}>123</Tappable>
-            <Tappable component="li" styleName="operator-item space" onTapEnd={this.handleKeyboardTouch(' ')}>space</Tappable>
-            <Tappable component="li" styleName="operator-item operator-item-width action-image" onTap={this.handleHideKeyboardTap}>
-              <div styleName="packUpIcon">{}</div>
+          <ul className={`${prefixCls}-flex-center ${prefixCls}-letter-gap ${prefixCls}-letter-forthLine`}>
+            <Tappable component="li" className={`${prefixCls}-operator-item ${prefixCls}-operator-item-width`} onTap={this.handleKeyboardSwitchTap(this.keyboardTypes.DIGIT)}>123</Tappable>
+            <Tappable component="li" className={`${prefixCls}-operator-item ${prefixCls}-space`} onTapEnd={this.handleKeyboardTouch(' ')}>space</Tappable>
+            <Tappable component="li" className={`${prefixCls}-operator-item ${prefixCls}-operator-item-width ${prefixCls}-action-image`} onTap={this.handleHideKeyboardTap}>
+              <div className={`${prefixCls}-packUpIcon`}>{}</div>
             </Tappable>
-            <li styleName="operator-item confirm">确定</li>
+            <li className={`${prefixCls}-operator-item ${prefixCls}-confirm`}>确定</li>
           </ul>
         </ul>
     )
@@ -219,10 +226,14 @@ class Keyboard extends Component {
   }
 
   render() {
-    const clsName = classnames({ 'hideKeyboard': !this.state.showKeyboard });
+    const prefixCls = this.props.prefixCls;
+    const clsName = classnames(prefixCls,{
+        [`${prefixCls}-keyboard`]: true,
+        [`${prefixCls}-hideKeyboard`]: !this.state.showKeyboard
+    });
 
     return (
-        <section styleName={`keyboard ${clsName}`} id="keyboard">
+        <section className={clsName} id="keyboard">
           {this.renderKeyboardItems()}
         </section>
     )
@@ -230,6 +241,7 @@ class Keyboard extends Component {
 }
 
 Keyboard.propTypes = {
+  prefixCls: PropTypes.string,                          //自定义类
   type: PropTypes.oneOf(['number', 'stock', 'letter']), //标志键盘的类型
   showKeyboard: PropTypes.bool,
   onPress: PropTypes.func.isRequired,  //点击操作
@@ -240,10 +252,9 @@ Keyboard.propTypes = {
 };
 
 Keyboard.defaultProps = {
+  prefixCls: defaultPrefixCls,
   type: 'number',
   showKeyboard: false
 };
 
-export default CSSModule(Keyboard, styles, {
-  allowMultiple: true
-});
+export default Keyboard;
